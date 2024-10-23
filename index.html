@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Data Science Portfolio">
+    <title>My Data Science Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <header>
+    <nav>
+        <div class="logo">My Portfolio</div>
+        <ul class="nav-links">
+            <li><a href="#about">About Me</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    </header>
+    
+    <!-- About Section -->
+    <section id="about" class="section about-section">
+    <div class="about-container">
+        <div class="about-image">
+        <img src="https://via.placeholder.com/300" alt="Profile Image">
+    </div>
+        <div class="about-text">
+        <h2>About Me</h2>
+        <p>
+            Hi! I’m a student learning Data Science with experience in machine learning, data analysis, and predictive modeling. 
+            I'm passionate about turning data into actionable insights and delivering projects with real-world impact.
+        </p>
+        </div>
+    </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section skills-section">
+    <h2>Skills</h2>
+    <div class="skills-container">
+        <div class="skill-item">
+        <h3>Programming Languages</h3>
+        <p>Python, C++, SQL</p>
+        </div>
+        <div class="skill-item">
+        <h3>Data Analysis</h3>
+        <p>Pandas, Numpy, Scikit-learn, Seaborn, Matplotlib</p>
+        </div>
+        <div class="skill-item">
+        <h3>Machine Learning</h3>
+        <p>Regression, Classification, Clustering</p>
+        </div>
+        <div class="skill-item">
+        <h3>Tools</h3>
+        <p>Jupyter Notebook, VS Code, Git, Docker</p>
+        </div>
+    </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section projects-section">
+    <h2>Projects</h2>
+    <div class="projects-container">
+        <div class="project-item">
+        <img src="https://via.placeholder.com/400" alt="Project 1">
+        <h3>Predictive Model for Sales Forecasting</h3>
+        <p>
+            Developed a sales forecasting model using multiple linear regression. The model predicts sales volume 
+            based on historical data and marketing spend.
+        </p>
+        </div>
+        <div class="project-item">
+        <img src="https://via.placeholder.com/400" alt="Project 2">
+        <h3>Customer Segmentation Using Clustering</h3>
+        <p>
+            Implemented customer segmentation using DBSCAN clustering. The analysis provided valuable insights 
+            into customer groups, enabling personalized marketing strategies.
+        </p>
+        </div>
+    </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+    <h2>Contact Me</h2>
+    <form action="https://formspree.io/f/yourFormID" method="POST" id="contact-form">
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+    
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="5" required></textarea>
+
+        <button type="submit">Send Message</button>
+    </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+    <p>&copy; 2024 My Portfolio. All Rights Reserved.</p>
+    </footer>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
