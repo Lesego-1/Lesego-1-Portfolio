@@ -72,6 +72,10 @@
             height: auto;
             border-radius: 5px;
         }
+        .dashboard:hover {
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
         .project-card button {
             display: block;
             margin: 10px 0;
@@ -100,12 +104,19 @@
             padding: 10px;
             border-radius: 5px;
         }
-        a {
+        .contact {
             color: #003cff;
         }
         h3 {
             text-align: center;
             padding: 10px;
+        }
+        .no_dec {
+            text-decoration: none;
+            color: black;
+        }
+        .no_dec:hover {
+            color: #003cff;
         }
     </style>
 </head>
@@ -144,32 +155,34 @@
         <h2>Projects</h2>
         <div class="project-card" id="project1">
             <img src="credit_risk_placeholder.jpg" alt="Project 1">
-            <h3>Credit Risk Prediction</h3>
-            <p>Predicting loanees' credit risk (whether a person will default on a loan or not)</p>
+            <h3><a href="" class="no_dec">Credit Risk Prediction</a></h3>
+            <p>Predicting credit risk (whether a person will default on a loan or not).</p>
             <button onclick="toggleDescription('desc1')">Read More</button>
             <p class="more-text" id="desc1">
-                Built a machine learning model to predict the estimated loan repayment period using real-world financial data with 87% accuracy.<br><br>
-                Developed a full-stack Django application with a REST API to serve model predictions in a production-ready format.
+                Balanced the data by making use of downsampling and sampled the data for computational efficiency (optional).
+                Cleaned the data by ensuring data consistency, correcting column datatypes and removing duplicated rows.<br><br>
+                Prepared data for machine learning by <b>One Hot Encoding</b> and splitting the data into train and test data.
+                Built machine learning models (XGBoost and LightGBM) to predict the estimated loan repayment period using real-world financial data with 87% accuracy.
             </p>
         </div>
         <div class="project-card" id="project2">
-            <img src="Sales Dashboard.png" alt="Project 2">
-            <h3>Tableau Sales Data</h3>
-            <p>Dashboard to analyze Sales Performance</p>
+            <a href="https://public.tableau.com/app/profile/lesego.dhlamini/viz/TableauProject_17295060954210/SalesDashboard" target="_blank"><img src="Sales Dashboard.png" alt="Project 2" class="dashboard"></a>
+            <h3><a href="" class="no_dec">Tableau Sales Data</a></h3>
+            <p>Dashboard to analyze sales performance.</p>
             <button onclick="toggleDescription('desc2')">Read More</button>
             <p class="more-text" id="desc2">Developed 2 interactive Tableau dashboards to analyze and visualize sales performance, leveraging dynamic visualizations to enable in-depth exploration of sales trends and patterns across multiple years.<br><br>
-            Implemented custom parameters and interactive filters to allow stakeholders to dynamically visualize sales data by region, product category, and time period, enhancing data accessibility and analysis efficiency.
+            Implemented <b>custom parameters and interactive filters</b> to allow stakeholders to dynamically visualize sales data by region, product category, and time period, enhancing data accessibility and analysis efficiency.
             </p>
         </div>
         <div class="project-card" id="project3">
-            <img src="Term Deposit.png" alt="Project 3">
-            <h3>Term Deposit Classification</h3>
-            <p>Using clustering techniques to identify customer segments.</p>
+            <a href="https://public.tableau.com/app/profile/lesego.dhlamini/viz/DjangoBankProjectDashboard/Dashboard1?publish=yes" target="_blank"><img src="Term Deposit.png" alt="Project 3" class="dashboard"></a>
+            <h3><a href="" class="no_dec">Term Deposit Classification</a></h3>
+            <p>Analyzing and predicting if a person will subscribe to a term deposit.</p>
             <button onclick="toggleDescription('desc3')">Read More</button>
             <p class="more-text" id="desc3">
-                Developed an end-to-end machine learning model using Django to predict customer subscription to a term deposit, achieving a prediction accuracy of 80%.
-                <br><br>
-                Automated data preprocessing and feature engineering, reducing data cleaning time by 30%.<br>Created a RESTful API to process user input and store in a sqlite3 database.<br><br>
+                Developed a machine learning model to predict customer subscription to a term deposit, achieving a prediction accuracy of <b>80%</b>.
+                <br>
+                Automated data preprocessing and feature engineering, significantly reducing data cleaning time.<br><br>
                 Created an interactive dashboard to analyze KPI's such as conversion rates and total subscriptions for each month with filters for deeper analysis.<br>The dashboard helps understand factors that contribute to more term deposits.
             </p>
         </div>
@@ -183,9 +196,9 @@
 and Previous Year-to-Date (PYTD) sales, enabling stakeholders to easily compare current and
 historical performance across various timeframes.
 <br><br>
-Created interactive visualizations for monthly sales trends, with drill-down capabilities to filter
+Created <b>interactive visualizations</b> for monthly sales trends, with drill-down capabilities to filter
 by product performance and country, allowing users to identify top-performing products and
-regional sales patterns for more targeted decision-making.
+regional sales patterns for <b>more targeted decision-making</b>.
             </p>
         </div>
     </section>
@@ -194,17 +207,17 @@ regional sales patterns for more targeted decision-making.
         <h2>Skills</h2>
         <ul>
             <li>Python, Pandas, NumPy</li>
-            <li>Machine Learning (Scikit-learn, Keras/TensorFlow)</li>
+            <li>Machine Learning (Scikit-learn)</li>
             <li>Data Visualization (Tableau, Matplotlib, Seaborn, Power BI)</li>
-            <li>SQL, MySQL, SQLite3</li>
+            <li>SQL, SQLite3</li>
         </ul>
     </section>
     
     <section id="contact">
         <h2>Contact</h2>
-        <p>Email: lesegojuniorrobert7@gmail.com</p>
-        <p>LinkedIn: <a href="#">linkedin.com/in/yourprofile</a></p>
-        <p>GitHub: <a href="#">github.com/yourusername</a></p>
+        <p><b>Email:</b> lesegojuniorrobert7@gmail.com</p>
+        <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/lesego-d-a5a7372a0/" target="_blank" class="contact">My LinkedIn</a></p>
+        <p><b>GitHub:</b><a href="https://github.com/Lesego-1" target="_blank" class="contact">My GitHub</a></p>
     </section>
     
     <script>
