@@ -3,122 +3,232 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Data Science Portfolio">
-    <title>My Data Science Portfolio</title>
+    <title>Data Science Portfolio</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(90deg, rgb(255, 244, 230), rgb(120, 60, 40));
+            height: 100vh;
+        }
+        header {
+            background: linear-gradient(90deg, rgb(255, 244, 230), rgb(120, 60, 40));
+            color: white;
+            padding: 1rem 0;
+            text-align: center;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 15px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        #profile {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            background-color: rgba(120, 60, 40, 0.4);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        #profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-right: 20px;
+            box-shadow:
+                0 2px 6px rgba(255, 200, 150, 0.2),
+                0 8px 16px rgba(120, 60, 40, 0.3);
+        }
+        section {
+            padding: 20px;
+            margin: 10px auto;
+            max-width: 800px;
+            background-color: rgba(120, 60, 40, 0.4);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        .project-card {
+            border: 1px solid rgba(51, 65, 85, 0.4);
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            background-color: rgba(120, 60, 40, 0.4);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        }
+        .project-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+        .dashboard:hover {
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .project-card button {
+            display: block;
+            margin: 10px 0;
+            padding: 5px 10px;
+            background-color: rgba(43, 21, 15, 0.4);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 3px;
+        }
+        .project-card button:hover {
+            background: white;
+            color: rgb(43, 21, 15);
+        }
+        .more-text {
+            display: none;
+        }
+        #skills ul {
+            list-style: none;
+            padding: 0;
+        }
+        #skills li {
+            background-color: rgba(255, 244, 230, 0.2);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            margin: 5px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .contact {
+            color: #003cff;
+        }
+        h3 {
+            text-align: center;
+            padding: 10px;
+        }
+        .no_dec {
+            text-decoration: none;
+            color: black;
+        }
+        .no_dec:hover {
+            color: #003cff;
+        }
+    </style>
 </head>
 <body>
-
-    <!-- Navbar -->
     <header>
-    <nav>
-        <div class="logo">Lesego Dhlamini</div>
-        <ul class="nav-links">
-            <li><a href="#about">About Me</a></li>
-            <li><a href="#skills">Skills</a></li>
-            <li><a href="#projects">Projects</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+        <nav>
+            <ul>
+                <li><a href="#summary">About</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
     
-    <!-- About Section -->
-    <section id="about" class="section about-section">
-    <div class="about-container">
-        <div class="about-image">
-        <img src="profile_img.png" alt="Profile Image">
+    <section id="profile">
+        <img src="profile.png" alt="Profile Picture">
+        <div>
+            <h1>Lesego Dhlamini</h1>
+            <p>Data Scientist | Machine Learning Enthusiast</p>
         </div>
-        <div class="about-text">
+    </section>
+    
+    <section id="summary">
         <h2>About Me</h2>
         <p>
-            Hi!👋 I’m a student learning Data Science with projects utilizing Machine Learning, Data Visulaization, and Natural Language Processing. I'm excited about learning Deep Learning and using data and machine learning to produce valuable insights.
+            Motivated and detail-oriented Information Technology student with hands-on experience in machine
+            learning, data processing, and predictive modeling. Proficient in Python, SQL, and data visualization
+            tools such as Tableau. Skilled in applying data science techniques to analyze complex datasets, build
+            models, and generate actionable insights. Looking for an opportunity to leverage data science skills in a
+            collaborative environment while continuing to learn and grow in the field.
         </p>
-        </div>
-    </div>
     </section>
-
-    <!-- Skills Section -->
-    <section id="skills" class="section skills-section">
-    <h2>Skills</h2><br><br>
-    <div class="skills-container">
-        <div class="skill-item">
-        <h3>Programming Languages</h3>
-        <p>Python, SQL</p>
+    
+    <section id="projects">
+        <h2>Projects</h2>
+        <div class="project-card" id="project1">
+            <img src="credit_risk_placeholder.jpg" alt="Project 1">
+            <h3><a href="" class="no_dec">Credit Risk Prediction</a></h3>
+            <p>Predicting credit risk (whether a person will default on a loan or not).</p>
+            <button onclick="toggleDescription('desc1')">Read More</button>
+            <p class="more-text" id="desc1">
+                Balanced the data by making use of downsampling and sampled the data for computational efficiency (optional).
+                Cleaned the data by ensuring data consistency, correcting column datatypes and removing duplicated rows.<br><br>
+                Prepared data for machine learning by <b>One Hot Encoding</b> and splitting the data into train and test data.
+                Built machine learning models (XGBoost and LightGBM) to predict the estimated loan repayment period using real-world financial data with 87% accuracy.
+            </p>
         </div>
-        <div class="skill-item">
-        <h3>Data Analysis</h3>
-        <p>Tableau, Pandas, Numpy, Scikit-learn, Seaborn, Matplotlib</p>
+        <div class="project-card" id="project2">
+            <a href="https://public.tableau.com/app/profile/lesego.dhlamini/viz/TableauProject_17295060954210/SalesDashboard" target="_blank"><img src="Sales Dashboard.png" alt="Project 2" class="dashboard"></a>
+            <h3><a href="" class="no_dec">Tableau Sales Data</a></h3>
+            <p>Dashboard to analyze sales performance.</p>
+            <button onclick="toggleDescription('desc2')">Read More</button>
+            <p class="more-text" id="desc2">Developed 2 interactive Tableau dashboards to analyze and visualize sales performance, leveraging dynamic visualizations to enable in-depth exploration of sales trends and patterns across multiple years.<br><br>
+            Implemented <b>custom parameters and interactive filters</b> to allow stakeholders to dynamically visualize sales data by region, product category, and time period, enhancing data accessibility and analysis efficiency.
+            </p>
         </div>
-        <div class="skill-item">
-        <h3>Machine Learning</h3>
-        <p>Regression, Classification, Clustering, Natural Language Processing</p>
+        <div class="project-card" id="project3">
+            <a href="https://public.tableau.com/app/profile/lesego.dhlamini/viz/DjangoBankProjectDashboard/Dashboard1?publish=yes" target="_blank"><img src="Term Deposit.png" alt="Project 3" class="dashboard"></a>
+            <h3><a href="" class="no_dec">Term Deposit Classification</a></h3>
+            <p>Analyzing and predicting if a person will subscribe to a term deposit.</p>
+            <button onclick="toggleDescription('desc3')">Read More</button>
+            <p class="more-text" id="desc3">
+                Developed a machine learning model to predict customer subscription to a term deposit, achieving a prediction accuracy of <b>80%</b>.
+                <br>
+                Automated data preprocessing and feature engineering, significantly reducing data cleaning time.<br><br>
+                Created an interactive dashboard to analyze KPI's such as conversion rates and total subscriptions for each month with filters for deeper analysis.<br>The dashboard helps understand factors that contribute to more term deposits.
+            </p>
         </div>
-        <div class="skill-item">
-        <h3>Tools</h3>
-        <p>Tableau, Git, Jupyter Notebook, VS Code</p>
+        <div class="project-card" id="project4">
+            <img src="Plant Sales.png" alt="Project 4">
+            <h3>Power BI Plant Sales</h3>
+            <p>Predicting if a customer will subscribe to a term deposit.</p>
+            <button onclick="toggleDescription('desc4')">Read More</button>
+            <p class="more-text" id="desc4">
+                Developed a Power BI dashboard to track plant sales, summarizing KPIs like Year-to-Date (YTD)
+and Previous Year-to-Date (PYTD) sales, enabling stakeholders to easily compare current and
+historical performance across various timeframes.
+<br><br>
+Created <b>interactive visualizations</b> for monthly sales trends, with drill-down capabilities to filter
+by product performance and country, allowing users to identify top-performing products and
+regional sales patterns for <b>more targeted decision-making</b>.
+            </p>
         </div>
-    </div>
     </section>
-
-    <!-- Projects Section -->
-    <section id="projects" class="section projects-section">
-    <h2>Projects</h2><br><br>
-    <div class="projects-container">
-        <div class="project-item">
-            <h3><a href="https://github.com/Lesego-1/Django-E-t-E-Project" target="_blank">Django End-To-End Classification Problem on Finance Dataset</a></h3>
-            <p>
-                Implemented Random Forests to predict if a user would subscribe to a term deposit based on certain features such as thier age, if they have a housing loan and more. Preprocessed data by cleaning up fields and records and made use of Exploratory Data Analysis to extract insights from the data. Used techniques such as feature enginerring, scaling and Hyperparameter Tuning with GridSearchCV to ensure the best model performance. Stored the best estimated model and scaler using <i>joblib</i>, to use to scale and predict the user input data. Created a Django application that creates a form and directs a user to the page where the user data will be input. Processed the user input to predict values with the stored model and displayed the output in a separate results.html file.
-            </p>
-        </div>
-        <div class="project-item">
-            <h3></h3>
-            <p>
-                
-            </p>
-        </div>
-        <div class="project-item">
-            <h3><a href="https://github.com/Lesego-1/Customer-Feedback-Sentiment-Analysis" target="_blank">Customer Feedback Sentiment Analysis</a></h3>
-            <p>
-                Preprocessed data by cleaning the text using NLP methods such as: tokenization, lemmatization, stop words and vectorizing the words. Used LSTM and Naive Bayes  to classify the sentiment of the customer feedback. Achieved an accuracy score of 100% on LSTM and 89% on Naive Bayes.
-            </p>
-        </div>
-        <div class="project-item">
-            <h3><a href="https://public.tableau.com/views/TableauProject_17295060954210/CustomerDashboard?:language=en-US&:sid=&:redirect=auth&:display_count=n&    :origin=viz_share_link" target="_blank">Tableau Sales Dashboard</a></h3>
-            <p>
-                Created 2 Dashboards (Sales and Customer) to analyze sales performance and Customer retention and profitability. KPI's were shown for each dashboard to     summarize business metrics for each year. Implemented filters to allow for more in depth analysis of the data.
-            </p>
-        </div>
-        <div class="project-item">
-            <h3><a href="https://github.com/Lesego-1/Mall-Customer-Segmentation" target="_blank">Customer Segmentation Using Clustering</a></h3>
-            <p>
-                Implemented customer segmentation using K-Means, DBSCAN and Agglomerative clustering. The analysis provided valuable insights 
-                into customer groups, enabling personalized marketing strategies.
-            </p>
-        </div>
-        <div class="project-item">
-            <h3><a href="https://github.com/Lesego-1/Time-Series-Project" target="_blank">Time Series Analysis/Forecasting</a></h3>
-            <p>
-                Performed in depth cleaning and preprocessing of data to prepare it for time series forecasting and analysis. Exploratory Data Analysis showed that there is no seasonality in the dataset. The ARIMA model was used to forecast future values.
-            </p>
-        </div>
-    </div>
+    
+    <section id="skills">
+        <h2>Skills</h2>
+        <ul>
+            <li>Python, Pandas, NumPy</li>
+            <li>Machine Learning (Scikit-learn)</li>
+            <li>Data Visualization (Tableau, Matplotlib, Seaborn, Power BI)</li>
+            <li>SQL, SQLite3</li>
+        </ul>
     </section>
-
-    <!-- Contact Section -->
-    <section id="contact" class="section contact-section">
-    <h2>Contact Me</h2>
-    <ul>
-        <li><b>Email: </b>lesegojuniorrobert7@gmail.com</li>
-        <li><b><a href="https://github.com/Lesego-1" target="_blank">GitHub</a></b></li>
-        <li><b><a href="https://www.linkedin.com/in/lesego-d-a5a7372a0/overlay/about-this-profile/?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base%3BAiT8PK%2BCSs%2BU9MLOTFwfhQ%3D%3D" target="_blank">LinkedIn</a></b></li>
-    </ul>
+    
+    <section id="contact">
+        <h2>Contact</h2>
+        <p><b>Email:</b> lesegojuniorrobert7@gmail.com</p>
+        <p><b>LinkedIn:</b> <a href="https://www.linkedin.com/in/lesego-d-a5a7372a0/" target="_blank" class="contact">My LinkedIn</a></p>
+        <p><b>GitHub:</b><a href="https://github.com/Lesego-1" target="_blank" class="contact">My GitHub</a></p>
     </section>
-
-    <!-- Footer -->
-    <footer>
-    <p>Thanks for Visiting! 😊</p>
-    </footer>
-
-    <script src="scripts.js"></script>
+    
+    <script>
+        function toggleDescription(id) {
+            let desc = document.getElementById(id);
+            if (desc.style.display === "block") {
+                desc.style.display = "none";
+            } else {
+                desc.style.display = "block";
+            }
+        }
+    </script>
 </body>
 </html>
