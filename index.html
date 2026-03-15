@@ -1,190 +1,294 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesego - Data Science Portfolio</title>
+    <title>Lesego - Developer Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        charcoal: '#121212',
+                        'light-gray': '#E5E5E5',
+                        'slate-gray': '#6B7280',
+                        magenta: '#F472B6',
+                        coral: '#FB7185',
+                        teal: '#22D3EE',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.8s ease-out forwards',
+                        'slide-up': 'slideUp 0.8s ease-out forwards',
+                        'scale-in': 'scaleIn 0.5s ease-out forwards',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        scaleIn: {
+                            '0%': { opacity: '0', transform: 'scale(0.9)' },
+                            '100%': { opacity: '1', transform: 'scale(1)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
         body {
-            font-family: 'Poppins', sans-serif;
-            scroll-behavior: smooth;
-            position: relative;
+            font-family: 'Inter', sans-serif;
+            background-color: #121212;
+            color: #E5E5E5;
             overflow-x: hidden;
         }
-
-        .stars {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-
-        .star {
-            position: absolute;
-            background-color: #fff;
-            border-radius: 50%;
-            animation: twinkle var(--duration) ease-in-out infinite;
-        }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
-        }
         
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #121212;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #F472B6;
+            border-radius: 5px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #FB7185;
+        }
+
+        /* Glassmorphism */
+        .glass {
+            background: rgba(30, 30, 30, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(244, 114, 182, 0.1);
+        }
+
+        /* Gradient Text */
         .gradient-text {
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            background: linear-gradient(135deg, #F472B6 0%, #FB7185 50%, #22D3EE 100%);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
         }
-        
+
+        /* Progress Bar Animation */
         .progress-bar {
-            height: 8px;
-            border-radius: 4px;
-            background-color: #e5e7eb;
+            transition: width 1.5s ease-out;
+        }
+
+        /* Project Card Expansion */
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .project-card.expanded {
+            position: relative;
+            z-index: 10;
+            grid-column: 1 / -1;
+        }
+
+        .project-details {
+            max-height: 0;
+            opacity: 0;
             overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        
-        .progress-fill {
-            height: 100%;
-            border-radius: 4px;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            transition: width 1s ease-in-out;
+
+        .project-card.expanded .project-details {
+            max-height: 2000px;
+            opacity: 1;
+            margin-top: 2rem;
         }
-        
-        .card-hover:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
-        
-        .nav-link {
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation Active State */
+        .nav-link.active {
+            color: #F472B6;
             position: relative;
         }
-        
-        .nav-link::after {
+        .nav-link.active::after {
             content: '';
             position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: 0;
+            bottom: -4px;
             left: 0;
-            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-            transition: width 0.3s ease;
-        }
-        
-        .nav-link:hover::after {
             width: 100%;
+            height: 2px;
+            background: #F472B6;
+            border-radius: 2px;
         }
-        .center {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
+
+        /* Hero Pattern */
+        .hero-pattern {
+            background-image: radial-gradient(circle at 1px 1px, rgba(244, 114, 182, 0.15) 1px, transparent 0);
+            background-size: 40px 40px;
         }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-800">
-    <div class="stars" id="stars"></div>
+<body class="antialiased">
+
     <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-sm z-50">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-xl font-bold gradient-text"><a href="#home">Lesego's Portfolio</a></span>
+    <nav class="fixed w-full z-50 glass transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold gradient-text cursor-pointer" onclick="window.scrollTo(0,0)">LD</span>
                 </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link">Home</a>
-                    <a href="#about" class="nav-link">About</a>
-                    <a href="#skills" class="nav-link">Skills</a>
-                    <a href="#projects" class="nav-link">Projects</a>
-                    <a href="#experience" class="nav-link">Experience</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="nav-link text-light-gray hover:text-magenta px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Home</a>
+                        <a href="#about" class="nav-link text-light-gray hover:text-magenta px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">About</a>
+                        <a href="#skills" class="nav-link text-light-gray hover:text-magenta px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Skills</a>
+                        <a href="#projects" class="nav-link text-light-gray hover:text-magenta px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Projects</a>
+                        <a href="#experience" class="nav-link text-light-gray hover:text-magenta px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300">Experience</a>
+                        <a href="#contact" class="nav-link bg-magenta text-charcoal hover:bg-coral px-4 py-2 rounded-full text-sm font-semibold transition-all duration-300 hover:scale-105">Contact</a>
+                    </div>
                 </div>
+
+                <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button id="menu-btn" class="text-gray-600 hover:text-gray-900">
-                        <i class="fas fa-bars text-2xl"></i>
+                    <button id="mobile-menu-btn" class="text-light-gray hover:text-magenta focus:outline-none p-2">
+                        <i data-lucide="menu" class="h-6 w-6"></i>
                     </button>
                 </div>
             </div>
         </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white pb-4 px-4 shadow-lg">
-            <div class="flex flex-col space-y-3">
-                <a href="#home" class="nav-link py-2">Home</a>
-                <a href="#about" class="nav-link py-2">About</a>
-                <a href="#skills" class="nav-link py-2">Skills</a>
-                <a href="#projects" class="nav-link py-2">Projects</a>
-                <a href="#experience" class="nav-link py-2">Experience</a>
-                <a href="#contact" class="nav-link py-2">Contact</a>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="mobile-nav-link text-light-gray hover:text-magenta block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#about" class="mobile-nav-link text-light-gray hover:text-magenta block px-3 py-2 rounded-md text-base font-medium">About</a>
+                <a href="#skills" class="mobile-nav-link text-light-gray hover:text-magenta block px-3 py-2 rounded-md text-base font-medium">Skills</a>
+                <a href="#projects" class="mobile-nav-link text-light-gray hover:text-magenta block px-3 py-2 rounded-md text-base font-medium">Projects</a>
+                <a href="#experience" class="mobile-nav-link text-light-gray hover:text-magenta block px-3 py-2 rounded-md text-base font-medium">Experience</a>
+                <a href="#contact" class="mobile-nav-link text-magenta font-semibold block px-3 py-2 rounded-md text-base">Contact</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">Hi, I'm <span class="gradient-text">Lesego</span></h1>
-                <h2 class="text-2xl md:text-3xl font-semibold text-gray-600 mb-6">Python Developer</h2>
-                <p class="text-lg text-gray-600 mb-8">Building robust backend systems with Python and Django to transform complex data into actionable solutions. Passionate about REST APIs, authentication, scalable database design, and integrating machine learning models to enhance application intelligence.</p>
-                <div class="flex space-x-4">
-                    <a href="#contact" class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition duration-300">Contact Me</a>
-                    <a href="#projects" class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">View Projects</a>
-                    <a href="resume.pdf" download class="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-lg font-medium hover:shadow-lg transition duration-300">Download Resume</a>
+    <section id="home" class="min-h-screen flex items-center justify-center hero-pattern relative overflow-hidden pt-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-magenta/5 via-transparent to-charcoal pointer-events-none"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center">
+                <div class="mb-4 reveal active">
+                    <span class="inline-block py-1 px-3 rounded-full bg-magenta/10 border border-magenta/30 text-magenta text-sm font-semibold tracking-wide uppercase">
+                        How'd you get here lol😆
+                    </span>
                 </div>
-            </div>
-            <div class="md:w-1/2 flex justify-center">
-                <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white shadow-xl">
-                    <img src="profile.png" alt="Lesego Robert" class="w-full h-full object-cover">
+                
+                <h1 class="text-5xl md:text-7xl font-bold mb-4 tracking-tight reveal" style="transition-delay: 0.2s;">
+                    Hi, I'm <span class="gradient-text">Lesego</span>
+                </h1>
+                
+                <div class="h-8 md:h-12 mb-6 reveal" style="transition-delay: 0.4s;">
+                    <span id="typing-text" class="text-2xl md:text-4xl font-light text-slate-gray"></span>
+                    <span class="animate-pulse text-magenta">|</span>
+                </div>
+                
+                <p class="mt-4 max-w-2xl mx-auto text-xl text-slate-gray leading-relaxed reveal" style="transition-delay: 0.6s;">
+                    Junior Software Engineer specializing in C# and .NET, building secure backend systems and modern web applications.
+                </p>
+                
+                <div class="mt-8 flex justify-center gap-4 reveal" style="transition-delay: 0.8s;">
+                    <a href="resume.pdf" download class="group relative px-8 py-3 rounded-full bg-magenta text-charcoal font-semibold overflow-hidden transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-magenta/25">
+                        <span class="relative z-10">Download Resume</span>
+                        <div class="absolute inset-0 bg-coral transform scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></div>
+                    </a>
+                    <a href="#contact" class="px-8 py-3 rounded-full border-2 border-magenta text-magenta font-semibold hover:bg-magenta hover:text-charcoal transition-all duration-300 hover:scale-105">
+                        Get In Touch
+                    </a>
+                </div>
+
+                <!-- Scroll Indicator -->
+                <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                    <i data-lucide="chevron-down" class="w-6 h-6 text-magenta opacity-50"></i>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about" class="py-16 bg-white px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-12">About <span class="gradient-text">Me</span></h2>
-            <div class="flex flex-col md:flex-row">
-                <div class="md:w-2/3 mb-8 md:mb-0 md:pr-8">
-                    <p class="text-gray-600 mb-6">From building my first Python scripts to developing full CRUD REST APIs in Django, I’ve always been driven by a curiosity for how systems work and a passion for solving complex problems. During my Perpex internship, I designed and implemented database-driven backend systems, built authentication and permission layers, and conducted code reviews to improve code quality, all while honing my skills in system design and machine learning.</p>
-                    <p class="text-gray-600 mb-6">I thrive in environments where I can transform ideas into reliable, scalable applications and continuously learn new technologies. I am now eager to contribute my expertise in Python and Django to a software engineering team, delivering maintainable, impactful solutions that bridge technical precision with real-world impact.</p>
+    <section id="about" class="py-20 md:py-32 bg-charcoal relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="reveal">
+                    <div class="relative">
+                        <div class="absolute -inset-4 bg-gradient-to-r from-magenta to-teal rounded-2xl blur-2xl opacity-20 animate-pulse"></div>
+                        <img src="profile.png" alt="Lesego Robert" class="relative rounded-2xl shadow-2xl w-full object-cover aspect-[4/3] border border-gray-800">
+                        <div class="absolute -bottom-6 -right-6 bg-gray-900 p-4 rounded-xl border border-gray-700 shadow-xl">
+                            <div class="flex items-center gap-3">
+                                <div class="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                                <span class="text-sm font-semibold text-light-gray">Available for work</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="md:w-1/3">
-                    <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
-                        <h3 class="text-xl font-semibold mb-4">Expertise Areas</h3>
-                        <div class="space-y-4">
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                                    <i class="fas fa-brain text-blue-500"></i>
-                                </div>
-                                <span class="font-medium">Machine Learning</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
-                                    <i class="fab fa-python text-purple-500"></i>
-                                </div>
-                                <span class="font-medium">Django Framework</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                    <i class="fas fa-server text-indigo-500"></i>
-                                </div>
-                                <span class="font-medium">RESTful API</span>
-                            </div>
-                            <div class="flex items-center">
-                                <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                                    <i class="fab fa-python text-green-500"></i>
-                                </div>
-                                <span class="font-medium">Python</span>
-                            </div>
+                
+                <div class="reveal">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-6">
+                        About <span class="gradient-text">Me</span>
+                    </h2>
+                    <p class="text-slate-gray leading-relaxed mb-6 text-lg">
+                        I’m a Junior Software Engineer with a strong focus on C# and .NET backend development, building secure and scalable web applications. I have hands-on experience developing RESTful APIs, implementing authentication systems, and working with SQL databases through internships, training programs, and open-source contributions. I enjoy building clean, maintainable systems using technologies like ASP.NET Core, Entity Framework Core, and SQL Server, and I’m particularly interested in backend architecture, API design, and security.
+                    </p>
+                    <p class="text-slate-gray leading-relaxed mb-8">
+                        Through my internship and engineering training, I’ve collaborated with teams using Git-based workflows, participated in code reviews, and contributed to improving both application functionality and user experience. I’ve built and redesigned web pages, developed CRUD APIs with authentication and role-based access control, and contributed improvements to production APIs in open source projects. I’m currently looking to grow as a software engineer by contributing to real-world applications, learning from experienced developers, and continuously improving my skills in modern .NET development.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 mb-8">
+                        <div class="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-magenta/50 transition-colors">
+                            <i data-lucide="code" class="w-8 h-8 text-magenta mb-2"></i>
+                            <h3 class="font-semibold text-light-gray">C# & .NET Development</h3>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-magenta/50 transition-colors">
+                            <i data-lucide="server" class="w-8 h-8 text-teal mb-2"></i>
+                            <h3 class="font-semibold text-light-gray">REST API Design</h3>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-magenta/50 transition-colors">
+                            <i data-lucide="database" class="w-8 h-8 text-magenta mb-2"></i>
+                            <h3 class="font-semibold text-light-gray">Database Design & SQL</h3>
+                        </div>
+                        <div class="p-4 rounded-xl bg-gray-900/50 border border-gray-800 hover:border-magenta/50 transition-colors">
+                            <i data-lucide="shield-check" class="w-8 h-8 text-teal mb-2"></i>
+                            <h3 class="font-semibold text-light-gray">Authentication & Security</h3>
                         </div>
                     </div>
                 </div>
@@ -193,97 +297,110 @@
     </section>
 
     <!-- Skills Section -->
-    <section id="skills" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">My <span class="gradient-text">Skills</span></h2>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <!-- Technical Skills -->
-            <div>
-                <h3 class="text-xl font-semibold mb-6 flex items-center">
-                    <i class="fas fa-code mr-3 text-blue-500"></i>
-                    Technical Skills
-                </h3>
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Python</span>
-                            <span class="text-gray-500">95%</span>
+    <section id="skills" class="py-20 md:py-32 bg-gray-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Skills</span></h2>
+                <p class="text-slate-gray max-w-2xl mx-auto">Technologies and competencies I've mastered through hands-on experience and continuous learning.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Technical Skills -->
+                <div class="reveal">
+                    <h3 class="text-xl font-bold mb-8 flex items-center gap-2">
+                        <i data-lucide="cpu" class="text-magenta"></i>
+                        Technical Skills
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">C#</span>
+                                <span class="text-magenta font-bold">95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-magenta to-coral rounded-full" style="width: 0%" data-width="95%"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 95%"></div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">ASP.NET Core</span>
+                                <span class="text-magenta font-bold">90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-magenta to-coral rounded-full" style="width: 0%" data-width="90%"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Sci-kit Learn</span>
-                            <span class="text-gray-500">85%</span>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">SQL / Database Design</span>
+                                <span class="text-magenta font-bold">85%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-magenta to-coral rounded-full" style="width: 0%" data-width="85%"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 85%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Django REST Framework</span>
-                            <span class="text-gray-500">90%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">SQL</span>
-                            <span class="text-gray-500">80%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 80%"></div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">JavaScript / Frontend</span>
+                                <span class="text-magenta font-bold">80%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-magenta to-coral rounded-full" style="width: 0%" data-width="80%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Professional Skills -->
-            <div>
-                <h3 class="text-xl font-semibold mb-6 flex items-center">
-                    <i class="fas fa-user-tie mr-3 text-purple-500"></i>
-                    Professional Skills
-                </h3>
-                <div class="space-y-6">
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Backend Development</span>
-                            <span class="text-gray-500">95%</span>
+
+                <!-- Professional Skills -->
+                <div class="reveal">
+                    <h3 class="text-xl font-bold mb-8 flex items-center gap-2">
+                        <i data-lucide="briefcase" class="text-teal"></i>
+                        Professional Skills
+                    </h3>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">Problem Solving</span>
+                                <span class="text-teal font-bold">95%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-teal to-cyan rounded-full" style="width: 0%" data-width="95%"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 95%"></div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">Code Quality & Clean Architecture</span>
+                                <span class="text-teal font-bold">90%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-teal to-cyan rounded-full" style="width: 0%" data-width="90%"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">API Development and Integration</span>
-                            <span class="text-gray-500">90%</span>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">Team Collaboration</span>
+                                <span class="text-teal font-bold">92%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-teal to-cyan rounded-full" style="width: 0%" data-width="92%"></div>
+                            </div>
                         </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 90%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Problem Solving</span>
-                            <span class="text-gray-500">92%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 92%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between mb-2">
-                            <span class="font-medium">Communication</span>
-                            <span class="text-gray-500">88%</span>
-                        </div>
-                        <div class="progress-bar">
-                            <div class="progress-fill" style="width: 88%"></div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-light-gray">Communication</span>
+                                <span class="text-teal font-bold">88%</span>
+                            </div>
+                            <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                                <div class="progress-bar h-full bg-gradient-to-r from-teal to-cyan rounded-full" style="width: 0%" data-width="88%"></div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -292,317 +409,688 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="py-16 bg-white px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">My <span class="gradient-text">Projects</span></h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Here are some of my recent data science projects that showcase my skills and expertise.</p>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <section id="projects" class="py-20 md:py-32 bg-charcoal">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">My <span class="gradient-text">Projects</span></h2>
+                <p class="text-slate-gray max-w-2xl mx-auto">Selected projects demonstrating my experience building secure APIs, web applications, and backend systems using C# and .NET.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8" id="projects-grid">
                 <!-- Project 1 -->
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm transition duration-300 card-hover">
-                    <div class="h-48 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
-                        
-                        <img src="https://callcenterstudio.com/wp-content/uploads/2021/10/What-Is-Call-Center-Data-and-How-to-Analyze-It_.jpg" alt="Project 1" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2 text-gray-800">Customer Dispute Classification</h3>
-                        <p class="text-gray-600 mb-4">Built a customer dispute classification model for banking product complaints and summarized complaints.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
-                            <span class="bg-purple-100 text-purple-800 text-xs px-3 py-1 rounded-full">HuggingFace</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Tensorflow</span>
-                        </div><br>
-                        <a href="https://github.com/Lesego-1/Customer-Dispute-Classification" target="_blank" class="text-sm font-medium flex items-center" style="color: #3b82f6;">
-                            View Project <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Project 2 -->
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm transition duration-300 card-hover">
-                    <div class="h-48 bg-gradient-to-r from-green-400 to-blue-500 flex items-center justify-center">
-                        <img src="Credit_risk.jpeg" alt="Project 2" class="w-full h-full object-cover" alt="Project 2">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Credit Risk Prediction</h3>
-                        <p class="text-gray-600 mb-4">Developed a machine learning model to predict credit risk with 87% accuracy with real-world financial data.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
-                            <span class="bg-yellow-100 text-yellow-800 text-xs px-3 py-1 rounded-full">Scikit-Learn</span>
-                            <span class="bg-red-100 text-red-800 text-xs px-3 py-1 rounded-full">ML</span>
-                        </div><br>
-                        <a href="https://github.com/Lesego-1/Credit-Risk-App" target="_blank" class="text-sm font-medium flex items-center" style="color: #3b82f6;">
-                            View Project <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-                
-                <!-- Project 3 -->
-                <div class="bg-gray-50 rounded-xl overflow-hidden shadow-sm transition duration-300 card-hover">
-                    <div class="h-48 bg-gradient-to-r from-purple-400 to-pink-500 flex items-center justify-center">
-                        <img src="Customer_segmentation.jpeg" alt="Project 3" class="w-full h-full object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold mb-2">Customer Segmentation</h3>
-                        <p class="text-gray-600 mb-4">Implemented clustering algorithms to segment customers, which can increase marketing campaign effectiveness.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">Python</span>
-                            <span class="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">Scikit-Learn</span>
-                            <span class="bg-indigo-100 text-indigo-800 text-xs px-3 py-1 rounded-full">Seaborn</span>
-                        </div><br>
-                        <a href="https://github.com/Lesego-1/Mall-Customer-Segmentation" target="_blank" class="text-sm font-medium flex items-center" style="color: #3b82f6;">
-                            View Project <i class="fas fa-arrow-right ml-2"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="text-center mt-12">
-                <button class="border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-100 transition duration-300">
-                    <a href="projects.html">View All Projects</a>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Experience & Education -->
-    <section id="experience" class="py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <h2 class="text-3xl font-bold text-center mb-12">Experience & <span class="gradient-text">Education</span></h2>
-        
-        <div class="relative">            
-            <!-- Timeline item 1 -->
-            <div class="flex flex-col md:flex-row mb-12">
-                <div class="md:w-1/2 md:pr-12 mb-6 md:mb-0">
-                    <div class="bg-white p-6 rounded-xl shadow-sm md:text-right">
-                        <h3 class="text-xl font-semibold mb-2">Diploma in Information Technology</h3>
-                        <p class="text-gray-500 mb-2">2023 - 2025</p>
-                        <h4 class="font-medium text-gray-700">Richfield College</h4>
-                        <p class="text-gray-600 mt-2">Soon to Graduate with a Diploma. Major in Programming.</p>
-                    </div>
-                </div>
-                <div class="hidden md:flex md:w-1/2 items-center justify-center">
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                </div>
-                <div class="md:hidden w-full">
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                </div>
-                <div class="md:w-1/2 md:pl-12">
-                    <!-- Empty for alignment -->
-                </div>
-            </div>
-            
-            <!-- Timeline item 2 (example for future use) -->
-            
-            <div class="flex flex-col md:flex-row mb-12">
-                <div class="md:w-1/2 md:pr-12">
-                    
-                </div>
-                <div class="hidden md:flex md:w-1/2 items-center justify-center">
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                </div>
-                <div class="md:hidden w-full">
-                    <div class="w-16 h-16 rounded-full bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl mx-auto mb-4">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                </div>
-                <div class="md:w-1/2 md:pl-12 mb-6 md:mb-0">
-                    <div class="bg-white p-6 rounded-xl shadow-sm">
-                        <h3 class="text-xl font-semibold mb-2">Backend Software Engineer Intern (Django)</h3>
-                        <p class="text-gray-500 mb-2">July 2025 - Present</p>
-                        <h4 class="font-medium text-gray-700">Perpex Internships</h4>
-                        <p class="text-gray-600 mt-2">Responsible for creating and editing Django models, serializers and the implementation of API endpoints to create fully functioning features.</p>
-                        
-                        <div class="mt-4"></div>
-                            <button onclick="toggleDetails(this)" class="text-purple-600 hover:text-purple-800 font-medium">
-                                Read more
-                            </button>
-                            <ul class="text-gray-600 mt-4 list-disc pl-5 space-y-2 hidden">
-                                <li>Designed and implemented 5+ relational Django models to ensure data consistency and scalability across multiple modules.</li>
-                                <li>Built and maintained 8+ CRUD REST API endpoints, enabling seamless communication between backend and client applications.</li>
-                                <li>Integrated APIs with serializers for 5+ models, streamlining data conversion between complex Django models and JSON outputs.</li>
-                                <li>Developed authentication and role-based permissions for 2+ user roles, securing 100% of protected API endpoints.</li>
-                                <li>Conducted 11 code reviews, improving code quality and adherence to Django best practices while mentoring peers.</li>
-                                <li>Participated in weekly system design and project review sessions, enhancing skills in database modeling, API architecture, and backend scalability concepts.</li>
-                            </ul>
+                <div class="project-card glass rounded-2xl overflow-hidden border border-gray-800 hover:border-magenta/50 transition-all duration-300 cursor-pointer group" onclick="toggleProject(this)">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="project2.png" alt="Auth API – JWT Authentication System" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent opacity-60"></div>
+                        <div class="absolute top-4 right-4 bg-magenta/20 backdrop-blur-md border border-magenta/30 text-magenta text-xs font-bold px-3 py-1 rounded-full">
+                            C# MVC
                         </div>
-
-                        <script>
-                            function toggleDetails(button) {
-                                const details = button.nextElementSibling;
-                                details.classList.toggle('hidden');
-                                button.textContent = details.classList.contains('hidden') ? 'Read more' : 'Read less';
-                            }
-                        </script>
                     </div>
-                </div>
-            </div>
-        
-        </div>
-    </section>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light-gray group-hover:text-magenta transition-colors">Auth API – JWT Authentication System</h3>
+                        <p class="text-slate-gray text-sm mb-4 line-clamp-2">A secure ASP.NET Core API implementing JWT authentication, refresh tokens, and role-based authorization with an MVC interface for user management.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-teal border border-teal/20">ASP.NET Core</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-magenta border border-magenta/20">JWT Auth</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-slate-gray border border-gray-700">SQL Server</span>
+                        </div>
+                        
+                        <button class="w-full py-2 rounded-lg border border-magenta text-magenta hover:bg-magenta hover:text-charcoal transition-all duration-300 flex items-center justify-center gap-2 group-btn">
+                            <span>View Project</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 transition-transform group-btn-hover:translate-x-1"></i>
+                        </button>
 
-    <!-- Contact Section -->
-    <section id="contact" class="py-16 bg-white px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold text-center mb-4">Get In <span class="gradient-text">Touch</span></h2>
-            <p class="text-gray-600 text-center mb-12 max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
-            
-            <div class="flex flex-col md:flex-row gap-12 center">
-                <!-- Contact Information -->
-                <div class="md:w-1/3">
-                    <div class="center">
-                        <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
-                            <h3 class="text-xl font-semibold mb-6">Contact Information</h3>
-                            
-                            <div class="space-y-6">
-                                <div class="flex items-start">
-                                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-map-marker-alt text-blue-500"></i>
+                        <!-- Expanded Details -->
+                        <div class="project-details">
+                            <div class="border-t border-gray-800 pt-6 mt-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-bold text-magenta mb-3">Project Summary</h4>
+                                        <p class="text-slate-gray text-sm leading-relaxed mb-4">
+                                            A secure authentication system built with ASP.NET Core that provides user registration, login, and protected API access using JWT-based authentication. The application implements refresh tokens, role-based authorization, and password hashing to ensure secure session management. An integrated MVC interface allows users to register, log in, and access a protected dashboard while the API remains fully testable through Swagger UI.
+                                        </p>
+                                        <h4 class="font-bold text-teal mb-3">Impact</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Implemented secure authentication and authorization, protecting API endpoints using JWT and role-based access control.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Improved session security and usability with refresh token rotation for persistent logins.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Designed a testable and developer-friendly API with Swagger documentation for interactive endpoint testing.</span>
+                                            </li>
+                                        </ul>
                                     </div>
                                     <div>
-                                        <h4 class="font-medium text-gray-700">Location</h4>
-                                        <p class="text-gray-600">Johannesburg, GP</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-envelope text-purple-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium text-gray-700">Email</h4>
-                                        <p class="text-gray-600">lesegojuniorrobert7@gmail.com</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-phone-alt text-green-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium text-gray-700">Phone</h4>
-                                        <p class="text-gray-600">066 021 6142</p>
-                                    </div>
-                                </div>
-                                
-                                <div class="flex items-start">
-                                    <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center mr-4">
-                                        <i class="fas fa-clock text-indigo-500"></i>
-                                    </div>
-                                    <div>
-                                        <h4 class="font-medium text-gray-700">Working Hours</h4>
-                                        <p class="text-gray-600">Mon-Fri: 9am - 4pm</p>
+                                        <h4 class="font-bold text-magenta mb-3">Key Features</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                User registration and login with secure password hashing
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                JWT authentication for protected API access
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Refresh tokens for long-lived sessions
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Role-based authorization for Admin and User roles
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                MVC UI for login, registration, and dashboard
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Interactive API testing with Swagger/OpenAPI
+                                            </li>
+                                        </ul>
+                                        <div class="mt-6 flex gap-3">
+                                            <a href="https://github.com/Lesego-1/User-Authentication-API" class="inline-flex items-center gap-2 px-4 py-2 bg-magenta text-charcoal rounded-lg font-semibold hover:bg-coral transition-colors text-sm">
+                                                <i data-lucide="github" class="w-4 h-4"></i>
+                                                Source Code
+                                            </a>
+                                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-teal text-teal rounded-lg font-semibold hover:bg-teal hover:text-charcoal transition-colors text-sm">
+                                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                                Live Demo
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
+
+                <!-- Project 2 -->
+                <div class="project-card glass rounded-2xl overflow-hidden border border-gray-800 hover:border-magenta/50 transition-all duration-300 cursor-pointer group" onclick="toggleProject(this)">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="project3.png" alt="Store Inventory Management API" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent opacity-60"></div>
+                        <div class="absolute top-4 right-4 bg-teal/20 backdrop-blur-md border border-teal/30 text-teal text-xs font-bold px-3 py-1 rounded-full">
+                            RESTful API
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light-gray group-hover:text-magenta transition-colors">Store Inventory Management API</h3>
+                        <p class="text-slate-gray text-sm mb-4 line-clamp-2">A RESTful ASP.NET Core API for managing products, categories, and inventory with filtering, pagination, and a clean layered architecture.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-magenta border border-magenta/20">ASP.NET Core Web API</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-teal border border-teal/20">Entity Framework Core</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-slate-gray border border-gray-700">SQL Server</span>
+                        </div>
+                        
+                        <button class="w-full py-2 rounded-lg border border-magenta text-magenta hover:bg-magenta hover:text-charcoal transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>View Project</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="project-details">
+                            <div class="border-t border-gray-800 pt-6 mt-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-bold text-magenta mb-3">Project Summary</h4>
+                                        <p class="text-slate-gray text-sm leading-relaxed mb-4">
+                                            A RESTful inventory management API built with ASP.NET Core that enables businesses to manage products, categories, and stock levels. The system follows a clean layered architecture separating controllers, services, and repositories to maintain scalability and maintainability. It also includes filtering, pagination, and automated database seeding, along with unit and integration testing to ensure reliable API behavior.
+                                        </p>
+                                        <h4 class="font-bold text-teal mb-3">Impact</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Designed a scalable API architecture using service and repository layers to improve maintainability.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Implemented efficient data querying with filtering and pagination for handling large product inventories.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Ensured system reliability through automated unit and integration tests.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-magenta mb-3">Tech Stack & Features</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                CRUD operations for products, categories, and inventory
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Filtering and pagination for efficient product searches
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Database migrations and seeding
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Unit and integration testing using xUnit
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                RESTful API design following proper HTTP conventions
+                                            </li>
+                                        <h4 class="font-bold text-magenta mb-3">Architecture</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Controller Layer – Handles HTTP requests and responses
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Service Layer – Implements business logic
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Repository Layer – Manages database interactions
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Entity Framework Core – Handles ORM and migrations
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                SQL Server – Stores product, category, and inventory data
+                                            </li>
+                                        </ul>
+                                        <div class="mt-6 flex gap-3">
+                                            <a href="https://github.com/Lesego-1/Store-Inventory-Management-API" class="inline-flex items-center gap-2 px-4 py-2 bg-magenta text-charcoal rounded-lg font-semibold hover:bg-coral transition-colors text-sm">
+                                                <i data-lucide="github" class="w-4 h-4"></i>
+                                                Source Code
+                                            </a>
+                                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-teal text-teal rounded-lg font-semibold hover:bg-teal hover:text-charcoal transition-colors text-sm">
+                                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                                Live Demo
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card glass rounded-2xl overflow-hidden border border-gray-800 hover:border-magenta/50 transition-all duration-300 cursor-pointer group" onclick="toggleProject(this)">
+                    <div class="relative overflow-hidden aspect-video">
+                        <img src="project1.png" alt="Community Marketplace Platform" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+                        <div class="absolute inset-0 bg-gradient-to-t from-charcoal to-transparent opacity-60"></div>
+                        <div class="absolute top-4 right-4 bg-purple-500/20 backdrop-blur-md border border-purple-400/30 text-purple-300 text-xs font-bold px-3 py-1 rounded-full">
+                            Full Stack
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-light-gray group-hover:text-magenta transition-colors">Community Marketplace Platform</h3>
+                        <p class="text-slate-gray text-sm mb-4 line-clamp-2">A full-stack marketplace platform that allows users to list, discover, and trade products or services within a moderated community environment.</p>
+                        
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-purple-400 border border-purple-400/20">Python (Django Framework)</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-red-400 border border-red-400/20">SQLite</span>
+                            <span class="text-xs px-2 py-1 rounded-full bg-gray-800 text-teal border border-teal/20">Role-Based Access Control</span>
+                        </div>
+                        
+                        <button class="w-full py-2 rounded-lg border border-magenta text-magenta hover:bg-magenta hover:text-charcoal transition-all duration-300 flex items-center justify-center gap-2">
+                            <span>View Project</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </button>
+
+                        <div class="project-details">
+                            <div class="border-t border-gray-800 pt-6 mt-6">
+                                <div class="grid md:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-bold text-magenta mb-3">Project Summary</h4>
+                                        <p class="text-slate-gray text-sm leading-relaxed mb-4">
+                                            A full-stack community marketplace platform that allows students and staff to buy and sell items or services within a trusted environment. Built with Django, the platform supports user authentication, product listings, search and filtering, messaging between buyers and sellers, and administrative moderation tools. The system focuses on usability, security, and scalability, providing a safe and structured marketplace experience.
+                                        </p>
+                                        <h4 class="font-bold text-teal mb-3">Impact</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Built a multi-role platform enabling buyers, sellers, and administrators to interact securely.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Implemented search, filtering, and messaging features to improve user engagement and marketplace usability.</span>
+                                            </li>
+                                            <li class="flex items-start gap-2">
+                                                <i data-lucide="check-circle" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                                <span>Developed moderation tools to maintain platform safety and content quality.</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-bold text-magenta mb-3">Key Features</h4>
+                                        <ul class="space-y-2 text-sm text-slate-gray">
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                User authentication with profile management
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Create, edit, and manage product/service listings
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Search and filtering system for discovering listings
+                                            </li>
+                                            <li class="flex items-center gap-2">
+                                                <i data-lucide="chevron-right" class="w-3 h-3 text-teal"></i>
+                                                Admin dashboard for moderation and analytics
+                                            </li>
+                                        </ul>
+                                        <div class="mt-6 flex gap-3">
+                                            <a href="https://github.com/Lesego-1/Community_Marketplace" class="inline-flex items-center gap-2 px-4 py-2 bg-magenta text-charcoal rounded-lg font-semibold hover:bg-coral transition-colors text-sm">
+                                                <i data-lucide="github" class="w-4 h-4"></i>
+                                                Source Code
+                                            </a>
+                                            <a href="#" class="inline-flex items-center gap-2 px-4 py-2 border border-teal text-teal rounded-lg font-semibold hover:bg-teal hover:text-charcoal transition-colors text-sm">
+                                                <i data-lucide="external-link" class="w-4 h-4"></i>
+                                                Live Demo
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience & Education Section -->
+    <section id="experience" class="py-20 md:py-32 bg-gray-900/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Experience & <span class="gradient-text">Education</span></h2>
+                <p class="text-slate-gray max-w-2xl mx-auto">My professional journey and academic background.</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Education Card -->
+                <div class="reveal group">
+                    <div class="glass p-8 rounded-2xl border border-teal/30 hover:border-teal transition-all duration-300 hover:transform hover:-translate-y-2 h-full relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-teal to-cyan"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-teal/10 border border-teal/30">
+                                <i data-lucide="graduation-cap" class="w-8 h-8 text-teal"></i>
+                            </div>
+                            <span class="text-sm text-teal font-semibold bg-teal/10 px-3 py-1 rounded-full">2023 - 2025</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-light-gray mb-2">Diploma in Information Technology</h3>
+                        <p class="text-teal font-semibold mb-4">Richfield College</p>
+                        
+                        <p class="text-slate-gray text-sm leading-relaxed">
+                            Soon to Graduate with a Diploma. Major in Programming. Focused on software engineering principles, database management, and modern web development practices.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Experience Card -->
+                <div class="reveal group">
+                    <div class="glass p-8 rounded-2xl border border-magenta/30 hover:border-magenta transition-all duration-300 hover:transform hover:-translate-y-2 h-full relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-magenta to-coral"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-magenta/10 border border-magenta/30">
+                                <i data-lucide="briefcase" class="w-8 h-8 text-magenta"></i>
+                            </div>
+                            <span class="text-sm text-magenta font-semibold bg-magenta/10 px-3 py-1 rounded-full">Jul 2025 - Oct 2025</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-light-gray mb-2">Backend Software Engineer Intern</h3>
+                        <p class="text-magenta font-semibold mb-4">Perpex</p>
+                        
+                        <ul class="space-y-3 text-sm text-slate-gray">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Designed and implemented 5+ relational Django models for data consistency</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Built and maintained 8+ CRUD REST API endpoints</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Developed authentication and role-based permissions for 2+ user roles</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Conducted 11 code reviews improving code quality and best practices</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Experience 2 -->
+                <div class="reveal group">
+                    <div class="glass p-8 rounded-2xl border border-magenta/30 hover:border-magenta transition-all duration-300 hover:transform hover:-translate-y-2 h-full relative overflow-hidden">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-magenta to-coral"></div>
+                        
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="p-3 rounded-xl bg-magenta/10 border border-magenta/30">
+                                <i data-lucide="briefcase" class="w-8 h-8 text-magenta"></i>
+                            </div>
+                            <span class="text-sm text-magenta font-semibold bg-magenta/10 px-3 py-1 rounded-full">Mar 2026 - Present</span>
+                        </div>
+                        
+                        <h3 class="text-xl font-bold text-light-gray mb-2">Software Engineer Intern</h3>
+                        <p class="text-magenta font-semibold mb-4">Hiteknology Solutions</p>
+                        
+                        <ul class="space-y-3 text-sm text-slate-gray">
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Contributed to the redesign and development of multiple client websites using HTML, CSS (Tailwind), and JavaScript, improving overall UI/UX and functionality.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Reviewed and managed Pull Requests (PRs), ensuring code quality, consistency, and proper functionality before merging to the main branch.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Created wireframes and designed key pages (home, services, gallery), translating client feedback into clean, responsive, user-friendly interfaces.</span>
+                            </li>
+                            <li class="flex items-start gap-2">
+                                <i data-lucide="check" class="w-4 h-4 text-magenta mt-0.5 flex-shrink-0"></i>
+                                <span>Fixed bugs, improved navigation functionality, and integrated team feedback to enhance performance, usability, and cross-page consistency across projects.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 md:py-32 bg-charcoal relative overflow-hidden">
+        <div class="absolute inset-0 hero-pattern opacity-30"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Get In <span class="gradient-text">Touch</span></h2>
+                <p class="text-slate-gray max-w-2xl mx-auto">Have a project in mind or want to discuss potential opportunities? Feel free to reach out!</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+                <div class="reveal glass p-6 rounded-2xl border border-gray-800 hover:border-magenta/50 transition-all duration-300 text-center group hover:transform hover:-translate-y-1">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-magenta/10 flex items-center justify-center group-hover:bg-magenta/20 transition-colors">
+                        <i data-lucide="map-pin" class="w-6 h-6 text-magenta"></i>
+                    </div>
+                    <h3 class="font-semibold text-light-gray mb-1">Location</h3>
+                    <p class="text-slate-gray text-sm">Johannesburg, GP</p>
+                </div>
+
+                <div class="reveal glass p-6 rounded-2xl border border-gray-800 hover:border-magenta/50 transition-all duration-300 text-center group hover:transform hover:-translate-y-1" style="transition-delay: 0.1s;">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-magenta/10 flex items-center justify-center group-hover:bg-magenta/20 transition-colors">
+                        <i data-lucide="mail" class="w-6 h-6 text-magenta"></i>
+                    </div>
+                    <h3 class="font-semibold text-light-gray mb-1">Email</h3>
+                    <a href="mailto:lesegojuniorrobert7@gmail.com" class="text-slate-gray text-sm hover:text-magenta transition-colors break-all">lesegonina64@gmail.com</a>
+                </div>
+
+                <div class="reveal glass p-6 rounded-2xl border border-gray-800 hover:border-magenta/50 transition-all duration-300 text-center group hover:transform hover:-translate-y-1" style="transition-delay: 0.2s;">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-magenta/10 flex items-center justify-center group-hover:bg-magenta/20 transition-colors">
+                        <i data-lucide="phone" class="w-6 h-6 text-magenta"></i>
+                    </div>
+                    <h3 class="font-semibold text-light-gray mb-1">Phone</h3>
+                    <p class="text-slate-gray text-sm">066 021 6142</p>
+                </div>
+
+                <div class="reveal glass p-6 rounded-2xl border border-gray-800 hover:border-magenta/50 transition-all duration-300 text-center group hover:transform hover:-translate-y-1" style="transition-delay: 0.3s;">
+                    <div class="w-12 h-12 mx-auto mb-4 rounded-full bg-magenta/10 flex items-center justify-center group-hover:bg-magenta/20 transition-colors">
+                        <i data-lucide="clock" class="w-6 h-6 text-magenta"></i>
+                    </div>
+                    <h3 class="font-semibold text-light-gray mb-1">Working Hours</h3>
+                    <p class="text-slate-gray text-sm">Mon-Fri: 8am - 4pm</p>
+                </div>
+            </div>
+
+            <!-- Contact Form -->
+            <div class="reveal max-w-2xl mx-auto glass p-8 rounded-2xl border border-gray-800">
+                <form class="space-y-6" action="https://formspree.io/f/xjgaeeop" method="POST">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-light-gray mb-2">Name</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-light-gray focus:outline-none focus:border-magenta focus:ring-1 focus:ring-magenta transition-colors" placeholder="Your Name" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-light-gray mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-light-gray focus:outline-none focus:border-magenta focus:ring-1 focus:ring-magenta transition-colors" placeholder="your@email.com" required>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-light-gray mb-2">Subject</label>
+                        <input type="text" class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-light-gray focus:outline-none focus:border-magenta focus:ring-1 focus:ring-magenta transition-colors" placeholder="Project Inquiry" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-light-gray mb-2">Message</label>
+                        <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-gray-900 border border-gray-700 text-light-gray focus:outline-none focus:border-magenta focus:ring-1 focus:ring-magenta transition-colors resize-none" placeholder="Tell me about your project..." required></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3 rounded-lg bg-magenta text-charcoal font-bold hover:bg-coral transition-all duration-300 hover:scale-[1.02] flex items-center justify-center gap-2">
+                        <span>Send Message</span>
+                        <i data-lucide="send" class="w-4 h-4"></i>
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-6 md:mb-0">
-                    <span class="text-xl font-bold gradient-text">Lesego Robert</span>
-                    <p class="text-gray-400 mt-2">Python Django Backend Developer | Building Scalable Systems & Integrating ML Solutions</p>
+    <footer class="bg-gray-900 border-t border-gray-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="text-xl font-bold gradient-text">LD</span>
+                    <span class="text-slate-gray text-sm">You made it all the way down to the bottom, you must really like me😄 or you're really bored 😫</span>
                 </div>
-                <div class="flex space-x-6">
-                    <a href="https://www.linkedin.com/in/lesego-d-a5a7372a0/" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
-                        <i class="fab fa-linkedin-in text-xl"></i>
+                <div class="flex gap-6">
+                    <a href="https://github.com/Lesego-1" class="text-slate-gray hover:text-magenta transition-colors">
+                        <i data-lucide="github" class="w-5 h-5"></i>
                     </a>
-                    <a href="https://github.com/Lesego-1" class="text-gray-400 hover:text-white transition duration-300" target="_blank">
-                        <i class="fab fa-github text-xl"></i>
+                    <a href="http://linkedin.com/in/lesego-d-a5a7372a0/" target="_blank" class="text-slate-gray hover:text-magenta transition-colors">
+                        <i data-lucide="linkedin" class="w-5 h-5"></i>
                     </a>
                 </div>
             </div>
         </div>
     </footer>
 
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-        // Create stars
-        const starsContainer = document.getElementById('stars');
-        const starsCount = 100;
-        
-        for (let i = 0; i < starsCount; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
+        lucide.createIcons();
+    </script>
+
+    <!-- Main JavaScript -->
+    <script>
+        // Typing Effect for Hero
+        const typingText = document.getElementById('typing-text');
+        const roles = ['Software Engineer', 'C#/.NET', 'JavaScript', 'Python/Django'];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        let typingTimeout;
+
+        function typeEffect() {
+            const currentRole = roles[roleIndex];
             
-            // Random properties for each star
-            const size = Math.random() * 3;
-            const duration = 5 + Math.random() * 10;
-            const delay = Math.random() * 5;
-            const x = Math.random() * 100;
-            const y = Math.random() * 100;
-            
-            star.style.width = `${size}px`;
-            star.style.height = `${size}px`;
-            star.style.left = `${x}%`;
-            star.style.top = `${y}%`;
-            star.style.setProperty('--duration', `${duration}s`);
-            star.style.animationDelay = `${delay}s`;
-            
-            starsContainer.appendChild(star);
+            if (isDeleting) {
+                typingText.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingText.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                typeSpeed = 500;
+            }
+
+            typingTimeout = setTimeout(typeEffect, typeSpeed);
         }
 
-        // Mobile menu toggle
-        document.getElementById('menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+        // Start typing effect when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(typeEffect, 500);
         });
-        
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('i');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('data-lucide', 'menu');
+            } else {
+                icon.setAttribute('data-lucide', 'x');
+            }
+            lucide.createIcons();
+        });
+
         // Close mobile menu when clicking a link
-        document.querySelectorAll('#mobile-menu a').forEach(link => {
-            link.addEventListener('click', function() {
-                document.getElementById('mobile-menu').classList.add('hidden');
+        document.querySelectorAll('.mobile-nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                const icon = mobileMenuBtn.querySelector('i');
+                icon.setAttribute('data-lucide', 'menu');
+                lucide.createIcons();
             });
         });
-        
-        // Animate progress bars when scrolling to skills section
+
+        // Project Card Expansion
+        let currentlyExpanded = null;
+
+        function toggleProject(card) {
+            const isExpanded = card.classList.contains('expanded');
+            
+            // Close currently expanded card if exists
+            if (currentlyExpanded && currentlyExpanded !== card) {
+                currentlyExpanded.classList.remove('expanded');
+                currentlyExpanded.querySelector('button span').textContent = 'View Project';
+            }
+
+            if (isExpanded) {
+                card.classList.remove('expanded');
+                card.querySelector('button span').textContent = 'View Project';
+                currentlyExpanded = null;
+            } else {
+                card.classList.add('expanded');
+                card.querySelector('button span').textContent = 'Close Details';
+                currentlyExpanded = card;
+                
+                // Scroll to project top if needed
+                setTimeout(() => {
+                    const cardRect = card.getBoundingClientRect();
+                    if (cardRect.top < 0 || cardRect.bottom > window.innerHeight) {
+                        card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }, 300);
+            }
+        }
+
+        // Scroll Animations using Intersection Observer
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    const progressBars = document.querySelectorAll('.progress-fill');
+                    entry.target.classList.add('active');
+                    
+                    // Animate progress bars if in skills section
+                    const progressBars = entry.target.querySelectorAll('.progress-bar');
                     progressBars.forEach(bar => {
-                        const width = bar.style.width;
-                        bar.style.width = '0';
-                        setTimeout(() => {
-                            bar.style.width = width;
-                        }, 100);
+                        const width = bar.getAttribute('data-width');
+                        bar.style.width = width;
                     });
-                    observer.unobserve(entry.target);
                 }
             });
-        }, {threshold: 0.5});
-        
-        const skillsSection = document.getElementById('skills');
-        if (skillsSection) {
-            observer.observe(skillsSection);
-        }
-        
-        // Smooth scrolling for navigation links
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Navigation Active State on Scroll
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+
+            // Navbar background on scroll
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Smooth scroll for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
+            anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
                     });
                 }
             });
+        });
+
+        // Add parallax effect to hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroPattern = document.querySelector('.hero-pattern');
+            if (heroPattern) {
+                heroPattern.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
         });
     </script>
 </body>
